@@ -6,7 +6,7 @@
 
 <table class="table">
     <thead>
-        <tr>
+        <tr class="danger">
             <th>Title</th>
             <th>Artist</th>
             <th>Genre</th>
@@ -17,9 +17,14 @@
     {
         <tr>
             <td>@album.Title</td>
-            <td></td>
-            <td></td>
+            <td>@album.Artist.Name</td>
+            <td>@album.Genre.Name</td>
             <td>@album.Price</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@album.AlbumID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@album.AlbumID">Delete</a>
+            </td>
         </tr>
     }
     </table>

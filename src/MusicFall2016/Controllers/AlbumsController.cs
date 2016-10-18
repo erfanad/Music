@@ -10,17 +10,25 @@ namespace MusicFall2016.Controllers
 {
     public class AlbumsController : Controller
     {
-        private readonly MusicDbContext _context;
+        private readonly MusicDbContext db;
 
         public AlbumsController(MusicDbContext context)
         {
-            _context = context;
+            db = context;
         }
-        // GET: /<controller>/
         public IActionResult Index()
         {
-            var albums =  _context.Albums.ToList();
+            var albums =  db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
             return View(albums);
+        }
+        public IActionResult Details(int? id)
+        {
+            Album album = db.Albums.Where(a => a.AlbumID == id);
+            if (album == null)
+            {
+                return HttpNotFound();
+            }
+            return View(album);
         }
     }
 }
