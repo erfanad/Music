@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MusicFall2016.Models.Artist>
+
+<h2>Artists</h2>
+
+<div><a asp-action="Create" class="btn btn-warning">Add Artist</a></div>
+<br />
+<table class="table">
+    <thead>
+        <tr class="bg-primary">
+            <th>Name</th>
+            <th>Bio</th>
+        </tr>
+    </thead>
+    @foreach (var artist in Model)
+    {
+        <tr>
+            <td>@artist.Name</td>
+            <td>@artist.Bio</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@artist.ArtistID">Details</a>
+            </td>
+        </tr>
+    }
+</table>
