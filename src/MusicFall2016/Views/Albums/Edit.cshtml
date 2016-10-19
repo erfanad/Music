@@ -1,0 +1,41 @@
+﻿@model MusicFall2016.Models.Album
+
+@{ViewData["Title"] = "Edit"; }
+
+<h2>Edit Album</h2>
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label for="Title" class="col-md-2 control-label">Title</label>
+            <div class="col-md-10">
+                <input asp-for="Title" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Artist" class="col-md-2 control-label">Artist</label>
+            <div class="col-md-10">
+                <select asp-for="ArtistID" asp-items="ViewBag.Artists" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Genre" class="col-md-2 control-label">Genre</label>
+            <div class="col-md-10">
+                <select asp-for="GenreID" asp-items="ViewBag.Genres" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Title" class="col-md-2 control-label">Price</label>
+            <div class="col-md-10">
+                <input asp-for="Price" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-action="Index" class="btn btn-default">Cancel</a>           
+            </div>
+        </div>
+    </fieldset>
+</form>
