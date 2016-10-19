@@ -3,7 +3,8 @@
     ViewData["Title"] = "Albums";
 }
 <h2>Album List</h2>
-
+<div><a asp-action="Create" class="btn btn-warning">Add Album</a></div>
+<br />
 <table class="table">
     <thead>
         <tr class="bg-primary">
@@ -21,7 +22,7 @@
             <td>@album.Genre.Name</td>
             <td>@album.Price</td>
             <td>
-                 <a asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
+                <a asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
                 <a asp-action="Edit" asp-route-id="@album.AlbumID">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@album.AlbumID">Delete</a>
             </td>

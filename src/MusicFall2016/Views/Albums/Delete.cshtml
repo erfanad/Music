@@ -1,0 +1,13 @@
+﻿@model MusicFall2016.Models.Album
+
+@{ViewData["Title"] = "Delete"; }
+
+<h2>Delete This Album?</h2>
+<div><b>Title: </b>@Model.Title</div>
+<div><b>Artist: </b>@Model.Artist.Name</div>
+<br />
+<form method="post">
+    <input type="hidden" asp-for="AlbumID">
+    <input type="submit"  value="Delete" class="btn btn-primary"/>
+    <a asp-action="Index" class="btn btn-default">Cancel</a>
+</form>
