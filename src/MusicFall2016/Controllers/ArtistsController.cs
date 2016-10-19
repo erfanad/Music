@@ -21,5 +21,34 @@ namespace MusicFall2016.Controllers
         {
             return View(db.Artists.ToList());
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Artist artist)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Add(artist);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var artist = db.Artists.SingleOrDefault(a => a.ArtistID == id);
+            ViewBag.Albums = db.Albums.Where(a => a.ArtistID == id).ToList();
+            if (artist == null)
+            {
+                return NotFound();
+            }
+            return View(artist);
+        }
     }
 }
