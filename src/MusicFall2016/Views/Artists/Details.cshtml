@@ -12,15 +12,18 @@
     <div class="col-md-10">@Model.Bio</div>
 </div>
 
+<h4><b>Albums:</b></h4>
 
 @foreach (var album in ViewBag.Albums)
 { 
     <tr>
         <td>@album.Title</td>
     </tr>
+    <br />
 }
 
-
+<br />
+<br />
 
 <a asp-action="Edit" asp-route-id="@Model.ArtistID" class="btn btn-primary">Edit</a> &nbsp &nbsp
 <a asp-action="Index" class="btn btn-default">Back to list</a>

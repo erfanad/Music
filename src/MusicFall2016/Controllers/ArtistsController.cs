@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MusicFall2016.Models;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -47,6 +48,31 @@ namespace MusicFall2016.Controllers
             if (artist == null)
             {
                 return NotFound();
+            }
+            return View(artist);
+        }
+        public IActionResult Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var artist = db.Artists.SingleOrDefault(a => a.ArtistID == id);
+            if(artist == null)
+            {
+                return NotFound();
+            }
+            return View(artist);
+        }
+        [HttpPost]
+        public IActionResult Edit(Artist artist)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Update(artist);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
             }
             return View(artist);
         }

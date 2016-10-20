@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MusicFall2016.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,7 +23,6 @@ namespace MusicFall2016.Controllers
         }
         public IActionResult Create()
         {
-            var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
             ViewBag.Artists = new SelectList(db.Artists.ToList(), "ArtistID", "Name");
             ViewBag.Genres = new SelectList(db.Genres.ToList(), "GenreID", "Name");
             return View();
@@ -75,7 +72,7 @@ namespace MusicFall2016.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(album).State = EntityState.Modified;
+                db.Update(album);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -97,10 +94,6 @@ namespace MusicFall2016.Controllers
         [HttpPost]
         public IActionResult Delete(Album album)
         {
-            if (album == null)
-            {
-                return NotFound();
-            }
             db.Remove(album);
             db.SaveChanges();
             return RedirectToAction("Index");
