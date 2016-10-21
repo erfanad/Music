@@ -5,17 +5,12 @@
 <h2>Genres</h2>
 <div><a asp-action="Create" class="btn btn-warning">Add Genre</a></div>
 <br />
-<table class="table">
-    <thead>
-        <tr class="bg-primary">
-            <th>Name</th>
-        </tr>
-    </thead>
-    @foreach (var genre in Model)
-    {
-        <tr>
-            <td><a asp-action="Details" asp-route-id="@genre.GenreID">@genre.Name</a></td>
-        </tr>
-    }
-</table>
+<h4>Name:</h4>
+    
+@foreach (var genre in Model)
+{
+        <a asp-action="Details" asp-route-id="@genre.GenreID">@genre.Name</a>
+        <br />
+}
+
 

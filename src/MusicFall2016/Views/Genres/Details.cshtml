@@ -1,0 +1,16 @@
+﻿@model MusicFall2016.Models.Genre
+
+@{ViewData["Title"] = "Details"; }
+
+<h2>@Model.Name Albums</h2>
+
+@foreach (var album in ViewBag.Albums)
+{
+    <a asp-controller="Albums" asp-action="Details" asp-route-id="@album.AlbumID">@album.Title</a>
+    <br />
+}
+
+<br />
+<br />
+
+<a asp-action="Index" class="btn btn-default">Back to list</a>
