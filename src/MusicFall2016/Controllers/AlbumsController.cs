@@ -37,6 +37,8 @@ namespace MusicFall2016.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Artists = new SelectList(db.Artists.ToList(), "ArtistID", "Name");
+            ViewBag.Genres = new SelectList(db.Genres.ToList(), "GenreID", "Name");
             return View();
         }
         public IActionResult Details(int? id)
@@ -76,6 +78,8 @@ namespace MusicFall2016.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Artists = new SelectList(db.Artists.ToList(), "ArtistID", "Name");
+            ViewBag.Genres = new SelectList(db.Genres.ToList(), "GenreID", "Name");
             return View(album);
         }
         public IActionResult Delete(int? id)

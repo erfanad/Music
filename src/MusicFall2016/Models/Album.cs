@@ -10,7 +10,7 @@ namespace MusicFall2016.Models
     {
         public int AlbumID { get; set; }
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Price is required!")]
         [Range(0.01, 100.00,
         ErrorMessage = "Price must be between $0.01 and $100.00.")]
         public decimal Price { get; set; }
