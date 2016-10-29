@@ -9,24 +9,35 @@
             <label for="Title" class="col-md-2 control-label">Title</label>
             <div class="col-md-10">
                 <input asp-for="Title" type="text" class="form-control">
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label for="Artist" class="col-md-2 control-label">Artist</label>
             <div class="col-md-10">
-                <select asp-for="ArtistID" asp-items="ViewBag.Artists" class="form-control"></select>
+                <select asp-for="ArtistID" asp-items="ViewBag.Artists" class="inline form-control">
+                    <option value="0" selected="selected">Select Artist</option>
+                </select>
+                or new artist:
+                <input type="text" name="NewArtist" class="inline form-control" />
+                <span asp-validation-for="ArtistID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label for="Genre" class="col-md-2 control-label">Genre</label>
             <div class="col-md-10">
-                <select asp-for="GenreID" asp-items="ViewBag.Genres" class="form-control"></select>
+                <select asp-for="GenreID" asp-items="ViewBag.Genres" class="inline form-control">
+                    <option value="0" selected="selected">Select Genre</option>
+                </select>
+                or new genre:
+                <input type="text" name="NewGenre" class="inline form-control" />
+                <span asp-validation-for="GenreID" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label for="Price" class="col-md-2 control-label">Price</label>
             <div class="col-md-10">
-                <input asp-for="Price" type="text" value="0.00 "class="form-control">
+                <input asp-for="Price" type="text" value="0.00 " class="form-control">
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
         </div>

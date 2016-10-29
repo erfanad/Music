@@ -16,9 +16,14 @@ namespace MusicFall2016.Controllers
         {
             db = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string search)
         {
-            var albums =  db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
+            var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
+            if (!string.IsNullOrEmpty(search))
+            {
+                albums = db.Albums.Where(a => a.Title.Contains(search) || a.Artist.Name.Contains(search) || a.Genre.Name.Contains(search)).ToList();
+            }
+
             return View(albums);
         }
         public IActionResult Create()
@@ -29,8 +34,20 @@ namespace MusicFall2016.Controllers
 
         }
         [HttpPost]
-        public IActionResult Create(Album album)
+        public IActionResult Create(Album album, string NewArtist, string NewGenre)
         {
+            if (!string.IsNullOrEmpty(NewArtist))
+            {
+                db.Artists.Add(new Artist { Name = NewArtist });
+                db.SaveChanges();
+                album.ArtistID = db.Artists.SingleOrDefault(a => a.Name == NewArtist).ArtistID;
+            }
+            if (!string.IsNullOrEmpty(NewGenre))
+            {
+                db.Genres.Add(new Genre { Name = NewGenre });
+                db.SaveChanges();
+                album.GenreID = db.Genres.SingleOrDefault(a => a.Name == NewGenre).GenreID;
+            }
             if (ModelState.IsValid)
             {
                 db.Add(album);
@@ -103,5 +120,20 @@ namespace MusicFall2016.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Like(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var album = db.Albums.SingleOrDefault(a => a.AlbumID == id);
+            if (album == null)
+            {
+                return NotFound();
+            }
+            album.Likes++;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

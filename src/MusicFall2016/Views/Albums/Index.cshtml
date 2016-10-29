@@ -5,6 +5,14 @@
 <h2>Album List</h2>
 <div><a asp-action="Create" class="btn btn-warning">Add Album</a></div>
 <br />
+<form class="form-inline">
+    <div class="form-group">
+        <input type="search" name="search" />
+    </div>
+    <button type="submit" class="btn btn-info btn-sm">Search</button>
+    @*@if(!string.IsNullOrEmpty())*@
+</form>
+<br />
 <table class="table">
     <thead>
         <tr class="bg-primary">
@@ -12,6 +20,7 @@
             <th>Artist</th>
             <th>Genre</th>
             <th>Price</th>
+            <th>Likes</th>
         </tr>
     </thead>
     @foreach (var album in Model)
@@ -21,13 +30,17 @@
             <td>@album.Artist.Name</td>
             <td>@album.Genre.Name</td>
             <td>@album.Price</td>
+            <td>@album.Likes</td>
             <td>
+                <form asp-action="Like" asp-route-id="@album.AlbumID" class="inline">
+                    <button type="submit" class="btn btn-sm btn-default">Like</button>
+                </form>|
                 <a asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
                 <a asp-action="Edit" asp-route-id="@album.AlbumID">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@album.AlbumID">Delete</a>
             </td>
         </tr>
     }
-    </table>
+</table>
 
 

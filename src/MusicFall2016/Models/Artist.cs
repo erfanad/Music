@@ -1,4 +1,6 @@
-﻿namespace MusicFall2016.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MusicFall2016.Models
 {
     public class Artist
     {
