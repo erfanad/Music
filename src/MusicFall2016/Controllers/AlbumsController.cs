@@ -21,6 +21,7 @@ namespace MusicFall2016.Controllers
             var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
             if (!string.IsNullOrEmpty(search))
             {
+                ViewBag.Search = search;
                 albums = db.Albums.Where(a => a.Title.Contains(search) || a.Artist.Name.Contains(search) || a.Genre.Name.Contains(search)).ToList();
             }
 
@@ -36,6 +37,14 @@ namespace MusicFall2016.Controllers
         [HttpPost]
         public IActionResult Create(Album album, string NewArtist, string NewGenre)
         {
+            if(string.IsNullOrEmpty(NewArtist) && album.ArtistID == 0)
+            {
+                ModelState.AddModelError("ArtistID", "Artist is required!");
+            }
+            if (string.IsNullOrEmpty(NewGenre) && album.GenreID == 0)
+            {
+                ModelState.AddModelError("GenreID", "Genre is required!");
+            }
             if (!string.IsNullOrEmpty(NewArtist))
             {
                 db.Artists.Add(new Artist { Name = NewArtist });

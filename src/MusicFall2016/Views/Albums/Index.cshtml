@@ -10,7 +10,11 @@
         <input type="search" name="search" />
     </div>
     <button type="submit" class="btn btn-info btn-sm">Search</button>
-    @*@if(!string.IsNullOrEmpty())*@
+    @if (!string.IsNullOrEmpty(ViewBag.Search))
+    {
+        <a asp-action="Index" class="btn btn-sm btn-danger">Back to List</a>
+
+    }
 </form>
 <br />
 <table class="table">

@@ -41,6 +41,10 @@ namespace MusicFall2016.Controllers
         [HttpPost]
         public IActionResult Create(Genre genre)
         {
+            if (db.Genres.Any(a => a.Name == genre.Name))
+            {
+                ModelState.AddModelError("Name", "This genre already exists!");
+            }
             if (ModelState.IsValid)
             {
                 db.Add(genre);

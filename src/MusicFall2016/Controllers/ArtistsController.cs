@@ -29,6 +29,11 @@ namespace MusicFall2016.Controllers
         [HttpPost]
         public IActionResult Create(Artist artist)
         {
+            if (db.Artists.Any(a => a.Name == artist.Name))
+            {
+                ModelState.AddModelError("Name", "This artist already exists!");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Add(artist);
@@ -53,12 +58,12 @@ namespace MusicFall2016.Controllers
         }
         public IActionResult Edit(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var artist = db.Artists.SingleOrDefault(a => a.ArtistID == id);
-            if(artist == null)
+            if (artist == null)
             {
                 return NotFound();
             }
@@ -72,7 +77,6 @@ namespace MusicFall2016.Controllers
                 db.Update(artist);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
             return View(artist);
         }

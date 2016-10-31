@@ -3,6 +3,7 @@
 @{ViewData["Title"] = "Details"; }
 
 <h2>Album Details</h2>
+
 <div class="row">
     <label class="col-md-2">Title:</label>
     <div class="col-md-10">@Model.Title</div>
@@ -23,7 +24,14 @@
     <label class="col-md-2">Price:</label>
     <div class="col-md-2">@Model.Price</div>
 </div>
+<div class="row">
+    <label class="col-md-2">Likes:</label>
+    <div class="col-md-2">@Model.Likes</div>
+</div>
 
-
+<form asp-action="Like" asp-route-id="@Model.AlbumID" class="inline">
+    <button type="submit" class="btn btn-info">Like</button>
+</form> &nbsp
 <a asp-action="Edit" asp-route-id="@Model.AlbumID" class="btn btn-primary">Edit</a> &nbsp &nbsp
 <a asp-action="Index" class="btn btn-default">Back to list</a>
+
