@@ -16,15 +16,45 @@ namespace MusicFall2016.Controllers
         {
             db = context;
         }
-        public IActionResult Index(string search)
+        public IActionResult Index(string search, string sort)
         {
+            ViewBag.ArtistSort = sort == "Artist" ? "ArtDesc" : "Artist";
+            ViewBag.GenreSort = sort == "Genre" ? "GenreDesc" : "Genre";
+            ViewBag.PriceSort = sort == "Price" ? "PriceDesc" : "Price";
+            ViewBag.LikesSort = sort == "Likes" ? "LikesDesc" : "Likes";
             var albums = db.Albums.Include(a => a.Artist).Include(a => a.Genre).ToList();
             if (!string.IsNullOrEmpty(search))
             {
                 ViewBag.Search = search;
                 albums = db.Albums.Where(a => a.Title.Contains(search) || a.Artist.Name.Contains(search) || a.Genre.Name.Contains(search)).ToList();
             }
-
+            switch (sort)
+            {
+                case "ArtDesc":
+                    albums = albums.OrderByDescending(a => a.Artist.Name).ToList();
+                    break;
+                case "Artist":
+                    albums = albums.OrderBy(a => a.Artist.Name).ToList();
+                    break;
+                case "GenreDesc":
+                    albums = albums.OrderByDescending(a => a.Genre.Name).ToList();
+                    break;
+                case "Genre":
+                    albums = albums.OrderBy(a => a.Genre.Name).ToList();
+                    break;
+                case "PriceDesc":
+                    albums = albums.OrderByDescending(a => a.Price).ToList();
+                    break;
+                case "Price":
+                    albums = albums.OrderBy(a => a.Price).ToList();
+                    break;
+                case "LikesDesc":
+                    albums = albums.OrderByDescending(a => a.Likes).ToList();
+                    break;
+                case "Likes":
+                    albums = albums.OrderBy(a => a.Likes).ToList();
+                    break;
+            }
             return View(albums);
         }
         public IActionResult Create()
@@ -37,7 +67,15 @@ namespace MusicFall2016.Controllers
         [HttpPost]
         public IActionResult Create(Album album, string NewArtist, string NewGenre)
         {
-            if(string.IsNullOrEmpty(NewArtist) && album.ArtistID == 0)
+            if(db.Artists.Any(a => a.Name == NewArtist))
+            {
+                album.ArtistID = db.Artists.SingleOrDefault(a => a.Name == NewArtist).ArtistID;
+            }
+            if (db.Genres.Any(a => a.Name == NewGenre))
+            {
+                album.GenreID = db.Artists.SingleOrDefault(a => a.Name == NewArtist).ArtistID;
+            }
+            if (string.IsNullOrEmpty(NewArtist) && album.ArtistID == 0)
             {
                 ModelState.AddModelError("ArtistID", "Artist is required!");
             }
@@ -45,13 +83,13 @@ namespace MusicFall2016.Controllers
             {
                 ModelState.AddModelError("GenreID", "Genre is required!");
             }
-            if (!string.IsNullOrEmpty(NewArtist))
+            if (!string.IsNullOrEmpty(NewArtist) && !db.Artists.Any(a => a.Name == NewArtist))
             {
                 db.Artists.Add(new Artist { Name = NewArtist });
                 db.SaveChanges();
                 album.ArtistID = db.Artists.SingleOrDefault(a => a.Name == NewArtist).ArtistID;
             }
-            if (!string.IsNullOrEmpty(NewGenre))
+            if (!string.IsNullOrEmpty(NewGenre) && !db.Genres.Any(a => a.Name == NewGenre))
             {
                 db.Genres.Add(new Genre { Name = NewGenre });
                 db.SaveChanges();

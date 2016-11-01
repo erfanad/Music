@@ -19,7 +19,7 @@
                     <option value="0" selected="selected">Select Artist</option>
                 </select>
                 or new artist:
-                <input type="text" name="NewArtist" class="inline form-control" />
+                <input asp-for="ArtistID" type="text" name="NewArtist" class="inline form-control" />
                 <span asp-validation-for="ArtistID" class="text-danger"></span>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <option value="0" selected="selected">Select Genre</option>
                 </select>
                 or new genre:
-                <input type="text" name="NewGenre" class="inline form-control" />
+                <input asp-for="GenreID" type="text" name="NewGenre" class="inline form-control" />
                 <span asp-validation-for="GenreID" class="text-danger"></span>
             </div>
         </div>

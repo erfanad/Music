@@ -1,4 +1,7 @@
-﻿.inline{
+﻿#link{
+     color: turquoise;
+}
+.inline{
     display: inline;
 }
 body {

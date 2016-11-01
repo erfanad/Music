@@ -21,10 +21,10 @@
     <thead>
         <tr class="bg-primary">
             <th>Title</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Price</th>
-            <th>Likes</th>
+            <th>@Html.ActionLink("Artist", "Index", new { sort = ViewBag.ArtistSort }, new { id = "link" })</th>
+            <th>@Html.ActionLink("Genre", "Index", new { sort = ViewBag.GenreSort }, new { id = "link" })</th>
+            <th>@Html.ActionLink("Price", "Index", new { sort = ViewBag.PriceSort }, new { id = "link" })</th>
+            <th>@Html.ActionLink("Likes", "Index", new { sort = ViewBag.LikesSort }, new { id = "link" })</th>
         </tr>
     </thead>
     @foreach (var album in Model)
