@@ -7,7 +7,7 @@
 <br />
 <form class="form-inline">
     <div class="form-group">
-        <input type="search" name="search" />
+        <input type="search" name="search"/>
     </div>
     <button type="submit" class="btn btn-info btn-sm">Search</button>
     @if (!string.IsNullOrEmpty(ViewBag.Search))
@@ -21,10 +21,10 @@
     <thead>
         <tr class="bg-primary">
             <th>Title</th>
-            <th>@Html.ActionLink("Artist", "Index", new { sort = ViewBag.ArtistSort }, new { id = "link" })</th>
-            <th>@Html.ActionLink("Genre", "Index", new { sort = ViewBag.GenreSort }, new { id = "link" })</th>
-            <th>@Html.ActionLink("Price", "Index", new { sort = ViewBag.PriceSort }, new { id = "link" })</th>
-            <th>@Html.ActionLink("Likes", "Index", new { sort = ViewBag.LikesSort }, new { id = "link" })</th>
+            <th><a asp-action="Index" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.ArtistSort" id="link">Artist</a></th>
+            <th><a asp-action="Index" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.GenreSort" id="link">Genre</a></th>
+            <th><a asp-action="Index" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.PriceSort" id="link">Price</a></th>
+            <th><a asp-action="Index" asp-route-search="@ViewBag.Search" asp-route-sort="@ViewBag.LikesSort" id="link">Likes</a></th>
         </tr>
     </thead>
     @foreach (var album in Model)
