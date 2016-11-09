@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using MusicFall2016.Models;
@@ -22,26 +19,65 @@ namespace MusicFall2016.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-      
-        public IActionResult Register()
+        
+        [AllowAnonymous]
+        public IActionResult Register(string Url = null)
         {
+            ViewData["Url"] = Url;
             return View();
 
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string Url = null)
         {
+            ViewData["Url"] = Url;
             if (ModelState.IsValid)
             {
                 var user = new AppUser { UserName = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return Redirect(Url);
                 }
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login(string Url = null)
+        {
+            ViewData["Url"] = Url;
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string Url = null)
+        {
+            ViewData["Url"] = Url;
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

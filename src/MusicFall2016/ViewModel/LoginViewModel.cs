@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusicFall2016.ViewModel
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]
@@ -14,8 +14,6 @@ namespace MusicFall2016.ViewModel
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage ="Password does not match!")]
-        public string ConfirmPassword { get; set; }
+        public bool RememberMe { get; set; }
     }
 }
