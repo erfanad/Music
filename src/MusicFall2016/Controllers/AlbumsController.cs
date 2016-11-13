@@ -3,6 +3,7 @@ using MusicFall2016.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -107,11 +108,13 @@ namespace MusicFall2016.Controllers
         }
         public IActionResult Details(int? id)
         {
+            var album = db.Albums.Include(a => a.Artist).Include(a => a.Genre).SingleOrDefault(a => a.AlbumID == id);
+            ViewBag.Suggest = db.Albums.Where(a => (a.ArtistID == album.ArtistID || a.GenreID == album.GenreID) && a.Likes >= 2 && a.AlbumID != album.AlbumID).Take(5);
             if (id == null)
             {
                 return NotFound();
             }
-            var album = db.Albums.Include(a => a.Artist).Include(a => a.Genre).SingleOrDefault(a => a.AlbumID == id);
+            
             if (album == null)
             {
                 return NotFound();

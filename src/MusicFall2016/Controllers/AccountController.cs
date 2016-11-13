@@ -35,7 +35,7 @@ namespace MusicFall2016.Controllers
             ViewData["Url"] = Url;
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Email};
+                var user = new AppUser { UserName = model.Email, DateJoined = System.DateTime.Now, Email = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

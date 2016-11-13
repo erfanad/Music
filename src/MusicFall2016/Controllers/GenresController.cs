@@ -20,6 +20,7 @@ namespace MusicFall2016.Controllers
         {
             return View(db.Genres.ToList());
         }
+       
         public IActionResult Details(int? id)
         {
             if (id == null)

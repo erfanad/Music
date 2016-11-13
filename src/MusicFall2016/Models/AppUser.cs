@@ -9,5 +9,6 @@ namespace MusicFall2016.Models
 {
     public class AppUser : IdentityUser
     {
+        public DateTime DateJoined { get; set; }
     }
 }

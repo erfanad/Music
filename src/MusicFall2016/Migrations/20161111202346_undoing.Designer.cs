@@ -8,9 +8,10 @@ using MusicFall2016.Models;
 namespace MusicFall2016.Migrations
 {
     [DbContext(typeof(MusicDbContext))]
-    partial class MusicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161111202346_undoing")]
+    partial class undoing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -157,8 +158,6 @@ namespace MusicFall2016.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<DateTime>("DateJoined");
-
                     b.Property<string>("Email")
                         .HasAnnotation("MaxLength", 256);
 
@@ -228,38 +227,6 @@ namespace MusicFall2016.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("MusicFall2016.Models.Playlist", b =>
-                {
-                    b.Property<int>("PlaylistID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("OwnerId");
-
-                    b.HasKey("PlaylistID");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Playlists");
-                });
-
-            modelBuilder.Entity("MusicFall2016.Models.PlaylistAlbums", b =>
-                {
-                    b.Property<int>("AlbumID");
-
-                    b.Property<int>("PlaylistID");
-
-                    b.HasKey("AlbumID", "PlaylistID");
-
-                    b.HasIndex("AlbumID");
-
-                    b.HasIndex("PlaylistID");
-
-                    b.ToTable("PlaylistAlbums");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -307,26 +274,6 @@ namespace MusicFall2016.Migrations
                     b.HasOne("MusicFall2016.Models.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MusicFall2016.Models.Playlist", b =>
-                {
-                    b.HasOne("MusicFall2016.Models.AppUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-                });
-
-            modelBuilder.Entity("MusicFall2016.Models.PlaylistAlbums", b =>
-                {
-                    b.HasOne("MusicFall2016.Models.Album", "Album")
-                        .WithMany("Playlists")
-                        .HasForeignKey("AlbumID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MusicFall2016.Models.Playlist", "Playlist")
-                        .WithMany("Albums")
-                        .HasForeignKey("PlaylistID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

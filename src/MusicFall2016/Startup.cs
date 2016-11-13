@@ -52,6 +52,7 @@ namespace MusicFall2016
                 options.Cookies.ApplicationCookie.LoginPath = "/Account/LogIn";
                 options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
                 // User settings
+                options.User.RequireUniqueEmail = true;
             });
         }
 

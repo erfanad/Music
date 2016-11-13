@@ -22,5 +22,6 @@ namespace MusicFall2016.Models
         public int GenreID { get; set; }
         public Genre Genre { get; set; }
         public int Likes { get; set; }
+        public List<PlaylistAlbums> Playlists { get; set; }
     }
 }

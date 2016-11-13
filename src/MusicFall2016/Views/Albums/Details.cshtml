@@ -28,7 +28,17 @@
     <label class="col-md-2">Likes:</label>
     <div class="col-md-2">@Model.Likes</div>
 </div>
-
+<br />
+<div>
+    <h4>Check out these suggested albums:</h4>
+    <ul>
+            @foreach (var album in ViewBag.Suggest)
+            {
+                <li>@album.Title</li>
+            }
+</ul>
+</div>
+<br />
 <form asp-action="Like" asp-route-id="@Model.AlbumID" class="inline">
     <button type="submit" class="btn btn-info">Like</button>
 </form> &nbsp
