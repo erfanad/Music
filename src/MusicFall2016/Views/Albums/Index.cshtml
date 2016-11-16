@@ -3,7 +3,7 @@
     ViewData["Title"] = "Albums";
 }
 <h2>Album List</h2>
-<div><a asp-action="Create" class="btn btn-warning">Add Album</a></div>
+<div><a asp-action="Create" class="btn btn-danger">Add Album</a></div>
 <br />
 <form class="form-inline">
     <div class="form-group">
@@ -39,9 +39,10 @@
                 <form asp-action="Like" asp-route-id="@album.AlbumID" class="inline">
                     <button type="submit" class="btn btn-sm btn-default">Like</button>
                 </form>|
-                <a asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
-                <a asp-action="Edit" asp-route-id="@album.AlbumID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@album.AlbumID">Delete</a>
+                <a class="btn btn-sm btn-default" asp-controller="Playlists" asp-action="AddAlbum" asp-route-id="@album.AlbumID">Playlist+</a> |
+                <a class="btn btn-sm btn-default" asp-action="Details" asp-route-id="@album.AlbumID">Details</a> |
+                <a class="btn btn-sm btn-default" asp-action="Edit" asp-route-id="@album.AlbumID">Edit</a> |
+                <a class="btn btn-sm btn-default" asp-action="Delete" asp-route-id="@album.AlbumID">Delete</a>
             </td>
         </tr>
     }

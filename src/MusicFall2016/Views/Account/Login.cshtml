@@ -5,7 +5,7 @@
 <h2>Log in</h2>
 <h5>Type in username and password to login</h5>
 <br />
-<form class="form-horizontal" asp-route-Url="@ViewData["Url"]" method="post">
+<form class="form-horizontal" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
     <fieldset>
         <div class="form-group">
             <label for="Email" class="col-md-2 control-label">Email</label>
@@ -22,20 +22,10 @@
             </div>
         </div>
         <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <label asp-for="RememberMe">
-                        <input asp-for="RememberMe" />
-                        @Html.DisplayNameFor(m => m.RememberMe)
-                    </label>
-                </div>
-            </div>
-        </div>
     </fieldset>
     <div class="form-group">
         <div class="col-md-10 col-md-offset-2">
-            <button type="submit" class="btn btn-primary">Log in</button>
+            <button type="submit" class="btn btn-primary btn-danger">Log in</button>
         </div>
     </div>
 </form>

@@ -27,6 +27,7 @@ namespace MusicFall2016.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
 
+        public DbSet<PlaylistAlbums> PlaylistAlbums { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

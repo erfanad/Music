@@ -1,18 +1,18 @@
-﻿@model MusicFall2016.Models.Genre
-
-@{ViewData["Title"] = "Create"; }
-
-<h2>Add Genre</h2>
+﻿@model MusicFall2016.Models.Album
+<h3>Select playlist for "@Model.Title"</h3>
 <br />
 <form class="form-horizontal" method="post">
     <fieldset>
+        <input type="hidden" asp-for="AlbumID"/>
         <div class="form-group">
-            <label for="Name" class="col-md-2 control-label">Name</label>
+            <label for="Playlists" class="col-md-2 control-label">Playlist</label>
             <div class="col-md-10">
-                <input asp-for="Name" type="text" class="form-control">
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <select name="PlaylistID" asp-items="ViewBag.Playlists" class="form-control">
+                </select>
             </div>
         </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" name="PlaylistID" />
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
                 <button type="submit" class="btn btn-primary btn-danger">Submit</button>

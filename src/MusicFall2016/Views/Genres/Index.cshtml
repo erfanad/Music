@@ -3,13 +3,13 @@
 @{ViewData["Title"] = "Genres"; }
 
 <h2>Genres</h2>
-<div><a asp-action="Create" class="btn btn-warning">Add Genre</a></div>
+<div><a asp-action="Create" class="btn btn-warning btn-danger">Add Genre</a></div>
 <br />
 <h4>Name:</h4>
     
 @foreach (var genre in Model)
 {
-        <a asp-action="Details" asp-route-id="@genre.GenreID">@genre.Name</a>
+        <a class="genreLinks" asp-action="Details" asp-route-id="@genre.GenreID">@genre.Name</a>
         <br />
 }
 

@@ -4,7 +4,7 @@
 
 <h2>Register</h2>
 <h5>Create a new account</h5>
-<form class="form-horizontal" asp-route-Url="@ViewData["Url"]" method="post">
+<form class="form-horizontal" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
     <fieldset>
         <div class="form-group">
             <label for="Email" class="col-md-2 control-label">Email</label>
@@ -23,14 +23,14 @@
         <div class="form-group">
             <label for="ConfirmPassword" class="col-md-2 control-label">Confirm Password</label>
             <div class="col-md-10">
-                <input asp-for="ConfirmPassword" type="text" class="form-control">
+                <input asp-for="ConfirmPassword" type="password" class="form-control">
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
         </div>
     </fieldset>
     <div class="form-group">
         <div class="col-md-10 col-md-offset-2">
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary btn-danger">Register</button>
         </div>
     </div>
 </form>

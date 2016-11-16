@@ -21,48 +21,49 @@ namespace MusicFall2016.Controllers
         }
         
         [AllowAnonymous]
-        public IActionResult Register(string Url = null)
+        public IActionResult Register(string returnUrl = null)
         {
-            ViewData["Url"] = Url;
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
 
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string Url = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
-            ViewData["Url"] = Url;
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new AppUser { UserName = model.Email, DateJoined = System.DateTime.Now, Email = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return Redirect(Url);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToLocal(returnUrl);
                 }
             }
             return View(model);
         }
 
         [AllowAnonymous]
-        public IActionResult Login(string Url = null)
+        public IActionResult Login(string returnUrl = null)
         {
-            ViewData["Url"] = Url;
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string Url = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["Url"] = Url;
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return RedirectToLocal(returnUrl);
                 }
                 else
                 {
@@ -78,6 +79,17 @@ namespace MusicFall2016.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
         }
     }
 }

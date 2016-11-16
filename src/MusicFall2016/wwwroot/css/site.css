@@ -1,5 +1,15 @@
-﻿#link{
-     color: turquoise;
+﻿.playlistLinks{
+    color: #ee5f5b;
+}
+.genreLinks{
+    color: #ee5f5b;
+}
+.jumbotron{
+    color: black;
+    background-color: #ee5f5b;
+}
+#link{
+     color: #ee5f5b;
 }
 .inline{
     display: inline;

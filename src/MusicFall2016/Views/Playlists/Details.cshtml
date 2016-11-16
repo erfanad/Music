@@ -1,0 +1,15 @@
+﻿@model MusicFall2016.Models.Playlist
+<div>
+    <h3>@Model.Name</h3>
+    <ol>
+        @foreach(var playlist in ViewBag.Albums)
+        {
+            <li>@playlist.Album.Title</li>
+        }
+    </ol>
+</div>
+<br />
+<p>
+    <a class="btn btn-danger" href="/Albums/Index">Add album</a>
+    <a class="btn btn-default" asp-action="Index">Cancel</a>
+</p>
