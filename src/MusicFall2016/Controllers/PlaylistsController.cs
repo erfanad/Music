@@ -133,7 +133,7 @@ namespace MusicFall2016.Controllers
             {
                 db.Add(playlist);
                 db.SaveChanges();
-                return RedirectToAction("Details");
+                return RedirectToAction("Details", new { id = PlaylistID});
             }
             return View(db.Albums.SingleOrDefault(a => a.AlbumID == AlbumID));
         }
