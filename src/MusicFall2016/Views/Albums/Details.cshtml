@@ -42,6 +42,7 @@
 <form asp-action="Like" asp-route-id="@Model.AlbumID" class="inline">
     <button type="submit" class="btn">Like</button>
 </form> &nbsp
-<a asp-action="Edit" asp-route-id="@Model.AlbumID" class="btn btn-primary btn-danger">Edit</a> &nbsp &nbsp
+<a asp-action="Edit" asp-route-id="@Model.AlbumID" class="btn btn-primary btn-danger">Edit</a> &nbsp
+<a class="btn btn-primary btn-default" asp-controller="Playlists" asp-action="AddAlbum" asp-route-id="@Model.AlbumID">Playlist+</a> &nbsp
 <a asp-action="Index" class="btn btn-default">Back to list</a>
 

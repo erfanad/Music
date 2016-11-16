@@ -1,6 +1,7 @@
 ﻿@model MusicFall2016.Models.Playlist
 <h3>Delete "@Model.Name"?</h3>
 <form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="PlaylistID">
     <input type="submit" value="Delete" class="btn btn-danger" />
     <a asp-action="Index" class="btn btn-default">Cancel</a>
 </form>
