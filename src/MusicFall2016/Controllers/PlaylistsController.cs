@@ -119,7 +119,7 @@ namespace MusicFall2016.Controllers
             return View(album);
         }
         [HttpPost]
-        public IActionResult AddAlbum(PlaylistAlbums playlist, int PlaylistID, int AlbumID)
+        public IActionResult AddAlbum(int PlaylistID, int AlbumID)
         {
             ViewBag.Playlists = new SelectList(db.Playlists.Where(p => p.Owner.UserName == User.Identity.Name).ToList(), "PlaylistID", "Name");
             if (db.PlaylistAlbums.Any(p => (p.AlbumID == AlbumID && p.PlaylistID == PlaylistID)))
@@ -127,8 +127,7 @@ namespace MusicFall2016.Controllers
                 ModelState.AddModelError("", "Album already exists in this playlist!");
                 return View(db.Albums.SingleOrDefault(a => a.AlbumID == AlbumID));
             }
-            playlist.PlaylistID = PlaylistID;
-            playlist.AlbumID = AlbumID;
+            PlaylistAlbums playlist = new PlaylistAlbums {PlaylistID = PlaylistID, AlbumID = AlbumID};
             if (ModelState.IsValid)
             {
                 db.Add(playlist);
