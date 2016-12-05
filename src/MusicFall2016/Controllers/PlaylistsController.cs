@@ -106,11 +106,16 @@ namespace MusicFall2016.Controllers
         }
         public IActionResult AddAlbum(int? id)
         {
-            ViewBag.Playlists = new SelectList(db.Playlists.Where(p => p.Owner.UserName == User.Identity.Name).ToList(), "PlaylistID", "Name");
             if (id == null)
             {
                 return NotFound();
             }
+            var OwnerPlaylists = db.Playlists.Where(p => p.Owner.UserName == User.Identity.Name).ToList();
+            if (OwnerPlaylists.Count == 0)
+            {
+                return RedirectToAction("Create");
+            }
+            ViewBag.Playlists = new SelectList(OwnerPlaylists, "PlaylistID", "Name");
             var album = db.Albums.SingleOrDefault(a => a.AlbumID == id);
             if (album == null)
             {
